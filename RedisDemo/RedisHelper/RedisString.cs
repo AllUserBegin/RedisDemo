@@ -5,6 +5,10 @@ using System.Web;
 
 namespace RedisDemo.RedisHelper
 {
+
+    /// <summary>
+    /// 
+    /// </summary>
     public class RedisString : RedisBase
     {
         #region 赋值

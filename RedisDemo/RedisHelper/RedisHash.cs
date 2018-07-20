@@ -5,6 +5,9 @@ using System.Web;
 
 namespace RedisDemo.RedisHelper
 {
+    /// <summary>
+    /// 
+    /// </summary>
     public class RedisHash : RedisBase
     {
         #region 添加

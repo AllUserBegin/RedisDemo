@@ -52,5 +52,39 @@ namespace RedisDemo.RedisHelper
         {
             Core.SaveAsync();
         }
+
+        /// <summary>
+        /// 通过Redis管道执行多个命令
+        /// </summary>
+        /// <param name="actions"></param>
+        public static void DoPipeline(List<Action<IRedisClient>> actions)
+        {
+            if (actions.Count <= 0)
+                return;
+
+            using (IRedisClient redis = RedisManager.GetClient())
+            {
+                if (redis == null)
+                    throw new Exception("manager.GetClient为空");
+                using (RedisAllPurposePipeline pipe = (RedisAllPurposePipeline)redis.CreatePipeline())
+                {
+                    foreach (Action<IRedisClient> action in actions)
+                    {
+                        pipe.QueueCommand(action);
+                    }
+                    pipe.Flush();
+                }
+            }
+        }
+
+        public  static string GetHashValue(Dictionary<string, string> dicHash, string key)
+        {
+            string value;
+            if (dicHash.TryGetValue(key, out value))
+            {
+                return value;
+            }
+            return string.Empty;
+        }
     }
 }
