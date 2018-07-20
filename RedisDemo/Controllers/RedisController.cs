@@ -16,6 +16,19 @@ namespace RedisDemo.Controllers
     public class RedisController : ApiController
     {
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <param name="key"></param>
+        /// <param name="value"></param>
+        /// <returns></returns>
+        [Route("ListPush")]
+        public ApiResult ListPush(string key, string value)
+        {
+            RedisList.LPush(key, value);
+            return ApiResult.ReturnWebResult(false, "");
+        }
+
         [Route("HashGet")]
         public ApiResult HashGet(int id)
         {
